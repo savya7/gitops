@@ -15,7 +15,6 @@
 6. run the file 2-istio-setup.yaml  to deploy istio configuration 
 7. Frist sync istio-init helm chart first. Up on successful completion, sync the istio-config helm later.
 8. execute the file 3-devopstools-setup.yaml to deploy jenkins,sonarqube and harbor to devopstools namespace
-9. Configure the Jenkins and update credentials for git and docker and create a pipeline using Jenkinsfile located in repo https://github.com/naveenkumarsp/gitops-argocd-demo
-10. CI pipeline can build containers and push it to docker repository
-11. Deploy argo example application to experience the gitops using argocd using 4-argoapps-demo.yaml
-12. Deploy istio example application to experience the gitops using argocd using 5-istioapps-demo.yaml
+9. CI pipeline can build containers and push it to docker repository
+10. Deploy argo example application to experience the gitops using argocd using 4-argoapps-demo.yaml
+11. Deploy istio example application to experience the gitops using argocd using 5-istioapps-demo.yaml
