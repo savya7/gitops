@@ -1,0 +1,27 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: tool-setup
+  # You'll usually want to add your resources to the argocd namespace.
+  namespace: argocd
+
+spec:
+  # The project the application belongs to.
+  project: tools
+
+  # Source of the application manifests
+  source:
+    repoURL: https://github.com/naveenkumarsp/srek8gitops.git
+    targetRevision: HEAD
+    path: k8sbootstrap/argoapps/katacoda
+
+  # Destination cluster and namespace to deploy the application
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: tools
+
+  syncPolicy:
+    automated:
+      prune: true # Specifies if resources should be pruned during auto-syncing ( false by default ).
+      selfHeal: true # Specifies if partial app sync should be executed when resources are changed only in target Kubernetes cluster and no git change detected ( false by default ).
+    validate: true # Validate resources before applying to k8s, defaults to true.

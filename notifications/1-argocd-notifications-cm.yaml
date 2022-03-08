@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: argocd-notifications-cm
+data:
+  config.yaml: |
+    triggers:
+      - name: on-sync-status-unknown
+        condition: app.status.sync.status == 'Unknown'
+        template: app-sync-status
+        enabled: true
+    templates:
+      - name: app-sync-status
+        title: Application {{.app.metadata.name}} sync status is {{.app.status.sync.status}}
+        body: |
+          Application {{.app.metadata.name}} sync is {{.app.status.sync.status}}.
+          Application details: {{.context.argocdUrl}}/applications/{{.app.metadata.name}}.
+        slack:
+          attachments: |
+            [{
+              "title": "{{.app.metadata.name}}",
+              "title_link": "{{.context.argocdUrl}}/applications/{{.app.metadata.name}}",
+              "color": "#18be52",
+              "fields": [{
+                "title": "Sync Status",
+                "value": "{{.app.status.sync.status}}",
+                "short": true
+              }, {
+                "title": "Repository",
+                "value": "{{.app.spec.source.repoURL}}",
+                "short": true
+              }]
+            }]

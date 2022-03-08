@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: argocd-notifications-secret
+stringData:
+  notifiers.yaml: |
+    slack:
+      token: https://hooks.slack.com/services/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
+type: Opaque

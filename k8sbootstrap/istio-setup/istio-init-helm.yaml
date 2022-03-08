@@ -1,0 +1,26 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: istio-init
+  # You'll usually want to add your resources to the argocd namespace.
+  namespace: argocd
+spec:
+  # The project the application belongs to.
+  project: tools
+
+  # Source of the application manifests
+  source:
+    repoURL: 'https://storage.googleapis.com/istio-release/releases/1.4.3/charts/'
+    targetRevision: 1.5.2
+    chart: istio-init
+
+  # Destination cluster and namespace to deploy the application
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: istio-system
+    
+  syncPolicy:
+    automated:
+      prune: true # Specifies if resources should be pruned during auto-syncing ( false by default ).
+      selfHeal: true # Specifies if partial app sync should be executed when resources are changed only in target Kubernetes cluster and no git change detected ( false by default ).
+    validate: true # Validate resources before applying to k8s, defaults to true.
